@@ -49,6 +49,17 @@
   outline: none;
 }
 
+.cau-wrapper .cau-form .cau-submit.cau-disabled {
+  background: #b8b8b8;
+  transition: none;
+  border-bottom: 4px solid #8d8d8d;
+}
+
+.cau-wrapper .cau-form .cau-submit.cau-disabled:hover {
+  background: #b8b8b8;
+  color: #fff;
+}
+
 .cau-wrapper .cau-form .cau-submit:hover{
   background: #149174;
   color: #0C5645;

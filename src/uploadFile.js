@@ -1,7 +1,8 @@
 import options from './stores/index'
 import { createProgressSection } from './helpers/renderer'
 import { createCORSRequest } from './helpers/cors'
-import { readFile } from './helpers/file'
+import { readFile, isImage } from './helpers/file'
+import fileIcon from './images/file_icon.png'
 
 const uploadSingleFile = (file, i) => {
   const formData = new FormData()
@@ -27,7 +28,11 @@ const uploadSingleFile = (file, i) => {
   xhr.send(formData)
 
   readFile(file).then(res => {
-    progressBar.preview.style.backgroundImage = `url("${res}")`
+    if (isImage(res)) {
+      progressBar.preview.style.backgroundImage = `url("${res}")`
+    } else {
+      progressBar.preview.style.backgroundImage = `url("${fileIcon}")`
+    }
   })
 
 }

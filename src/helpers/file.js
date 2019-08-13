@@ -9,10 +9,11 @@ export const readFile = (file) => {
   }) 
 }
 
-// const reader = new FileReader()
+export const isImage = (data) => {
+  const regex = /^data:image\/(png|jpe?g|gif|svg)/
+  if (data.search(regex) > -1) {
+    return true
+  }
 
-//     reader.readAsDataURL(file)
-//     reader.onload = function(e) {
-//       return e.target.result
-//       // progressBar.test.style.backgroundImage = `url("${e.target.result}")`
-//     }
+  return false
+}
