@@ -1,6 +1,6 @@
-import options from '../options'
+import options from './store/index'
 
-export const renderInit = () => {
+export default () => {
   const form = document.createElement('form')
   const inpFile = document.createElement('input')
   const submit = document.createElement('button')
@@ -29,28 +29,4 @@ export const renderInit = () => {
   })
 
   return { form, msg, inpFile, submit }
-}
-
-export const createProgressSection = () => {
-  const section = document.createElement('div')
-  const preview = document.createElement('div')
-  const progressBox = document.createElement('div')
-  const progressBar = document.createElement('div')
-  // const img = document.createElement('img')
-
-  section.classList.add('cau-progress')
-  preview.classList.add('cau-preview')
-  progressBox.classList.add('cau-progress-bar')
-  progressBar.classList.add('cau-bar')
-
-  // preview.appendChild(img)
-
-
-  options.target.appendChild(section)
-  section.appendChild(preview)
-  section.appendChild(progressBox)
-  progressBox.appendChild(progressBar)
-  progressBar.innerText = '0%'
-
-  return { section, preview, progressBox, progressBar }
 }

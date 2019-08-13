@@ -1,34 +1,11 @@
-import options from './options'
-import { createProgressSection } from './helpers/renderers'
-import readFile from './helpers/readFile'
-
-const createCORSRequest = (method, url) => {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
-
-    // Check if the XMLHttpRequest object has a "withCredentials" property.
-    // "withCredentials" only exists on XMLHTTPRequest2 objects.
-    xhr.open(method, url, true);
-
-  } else if (typeof XDomainRequest != "undefined") {
-
-    // Otherwise, check if XDomainRequest.
-    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-
-  } else {
-
-    // Otherwise, CORS is not supported by the browser.
-    xhr = null;
-
-  }
-  return xhr;
-}
+import options from './store/index'
+import { createProgressSection } from './helpers/renderer'
+import { createCORSRequest } from './helpers/cors'
+import { readFile } from './helpers/file'
 
 const uploadSingleFile = (file, i) => {
   const formData = new FormData()
-  formData.append('media', file)
+  formData.append(options.name, file)
 
   const xhr = createCORSRequest('POST', options.url) 
   if (!xhr) {
@@ -37,8 +14,8 @@ const uploadSingleFile = (file, i) => {
   }
 
   const progressBar = {
-    test: null,
-    target: null
+    preview: null,
+    bar: null
   }
 
   xhr.addEventListener('loadstart', e => loadstartHandler(e, progressBar), false)
@@ -49,27 +26,30 @@ const uploadSingleFile = (file, i) => {
   xhr.open("POST", options.url)
   xhr.send(formData)
 
-  // readFile(file, progressBar)
+  readFile(file).then(res => {
+    progressBar.preview.style.backgroundImage = `url("${res}")`
+  })
+
 }
 
 const loadstartHandler = (event, progressBarOpt) => {
-  console.log('loadstart', event)
-  const { preview, progressBar } = createProgressSection()
-  progressBarOpt.target = progressBar
-  progressBarOpt.test = preview
+  // console.log('loadstart', event)
+  const { preview, progressBar } = createProgressSection(options.target)
+  progressBarOpt.bar = progressBar
+  progressBarOpt.preview = preview
 
 } 
 
 const progressHandler = (event, progressBar) => {
-  console.log('progress', event)
+  // console.log('progress', event)
   let percent = Math.round(event.loaded / event.total * 100)
-  progressBar.target.style.width = percent + '%'
-  progressBar.target.innerText = percent + '%'
+  progressBar.bar.style.width = percent + '%'
+  progressBar.bar.innerText = percent + '%'
 }
 
 const completeHandler = (event, progressBar) => {
   console.log('complete', event)
-  progressBar.target.style.backgroundColor = 'green'
+  progressBar.bar.style.backgroundColor = 'green'
 }
 
 const errorHandler = (event) => {
@@ -81,7 +61,7 @@ const abortHandler = (event) => {
 }
 
 export default (files) => {
-  for (let file of files) {
-    uploadSingleFile(file)
+  for (let i = 0 ; i < files.length ; i++) {
+    uploadSingleFile(files[i], i)
   }
 }
