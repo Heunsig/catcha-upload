@@ -1,4 +1,4 @@
-import options from './store/index'
+import options from './stores/index'
 
 export default () => {
   const form = document.createElement('form')
