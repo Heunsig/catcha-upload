@@ -1,11 +1,11 @@
 import options from './stores/index'
 import wording from './stores/wording'
+import { updateMsgAndSubmit } from './helpers/renderer'
+// import fileModel from './models/file'
 
 export default () => {
   const form = document.createElement('form')
   const inpFile = document.createElement('input')
-  const submit = document.createElement('button')
-  const msg = document.createElement('p')
 
   form.classList.add('cau-form')
 
@@ -15,25 +15,16 @@ export default () => {
   inpFile.setAttribute('name', options.name)
   inpFile.classList.add('cau-input-file')
 
-  submit.setAttribute('type', 'submit')
-  // submit.setAttribute('disabled', 'disabled')
-  submit.classList.add('cau-submit')
-  submit.classList.add('cau-disabled')
-  submit.innerText = 'Upload'
-
-  msg.classList.add('cau-msg')
-  msg.innerText = wording.guidance()
-
   options.target.classList.add('cau-wrapper')
 
   options.target.appendChild(form)
   form.appendChild(inpFile)
-  form.appendChild(msg)
-  form.appendChild(submit)
+  updateMsgAndSubmit(form, inpFile.files.length)
+
 
   inpFile.addEventListener('change', function () {
-    msg.innerText = wording.fileCounter(this.files.length)
+    updateMsgAndSubmit(form, this.files.length)
   })
 
-  return { form, msg, inpFile, submit }
+  return { form, inpFile }
 }
