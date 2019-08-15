@@ -1,4 +1,5 @@
 const path = require('path')
+const pjson = require('./package.json')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -8,7 +9,13 @@ const isProduction = process.env.ENV === 'production' ? true : false
 
 module.exports = {
   mode: process.env.ENV,
-  entry: './src/index.js',
+  entry: isProduction ? {
+    [`${pjson.name}-${pjson.version}.min`]: './src/index.js',
+    'example': './src/example.js'
+  } : {
+    bundle: './src/index.js',
+    sample: './src/test.js'
+  },
   devtool: isProduction ? false : 'inline-source-map',
   devServer:{
     contentBase: './dev',
@@ -18,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'style.css'
+      filename: isProduction ? `${pjson.name}-${pjson.version}.min.css` : 'style.css'
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -26,7 +33,7 @@ module.exports = {
     })
   ],
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, isProduction ? 'dist' : 'dev')
   },
   module: {

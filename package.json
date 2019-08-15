@@ -1,12 +1,12 @@
 {
   "name": "catcha-upload",
-  "version": "1.0.0",
+  "version": "0.0.8",
   "description": "",
   "private": true,
   "scripts": {
     "build": "cross-env ENV=production webpack",
     "dev": "cross-env ENV=development webpack",
-    "watch": "cross-env ENV=development webpack",
+    "watch": "cross-env ENV=development webpack --watch",
     "start": "cross-env ENV=development webpack-dev-server --open"
   },
   "author": "",
