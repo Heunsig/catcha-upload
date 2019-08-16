@@ -1,4 +1,4 @@
-import options from './stores/index'
+// import options from './stores/index'
 import { createProgressSection } from './helpers/renderer'
 import { createCORSRequest } from './helpers/cors'
 import { readFile, isImage } from './helpers/file'

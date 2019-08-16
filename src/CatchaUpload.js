@@ -1,23 +1,28 @@
-import options from './stores/index'
-import renderInit from './renderInit'
-import uploadFiles from './uploadFile'
+import CatchaUploadConstructor from './lib/constructor'
+// import renderInit from './renderInit'
+import renderInit from './lib/renderers/init'
+
+import { uploadFiles } from './lib/upload/uploadFiles'
 import wording from './stores/wording'
 import { updateMsgAndSubmit } from './helpers/renderer' 
 
-
 'use strict'
-const CatchaUpload = (element, opts) => {
-  Object.assign(options, { target: element }, opts)
+const CatchaUpload = function (element, opts) {
+  CatchaUploadConstructor.call(this, element, opts)
 
-  const { inpFile, form } = renderInit()
+  // const { eleInputFile, eleForm } = renderInit.call(this)
+  renderInit.call(this)  
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault()
 
-    uploadFiles(inpFile.files)
-    inpFile.value = ''
-    updateMsgAndSubmit(form, inpFile.files.length)
-  })
+  // Attach event on the main form
+  // eleForm.addEventListener('submit', (e) => {
+  //   e.preventDefault()
+
+  //   uploadFiles.call(this, eleInputFile.files)
+
+  //   eleInputFile.value = ''
+  //   updateMsgAndSubmit(eleForm, eleInputFile.files.length)
+  // })
 }
 
 export default CatchaUpload

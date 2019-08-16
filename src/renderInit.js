@@ -1,30 +1,32 @@
-import options from './stores/index'
+// import options from './stores/index'
 import wording from './stores/wording'
 import { updateMsgAndSubmit } from './helpers/renderer'
-// import fileModel from './models/file'
 
-export default () => {
-  const form = document.createElement('form')
-  const inpFile = document.createElement('input')
+export default function () {
+  const target = this.target
+  const fileName = this.fileName
 
-  form.classList.add('cau-form')
+  const eleForm = document.createElement('form')
+  const eleInputFile = document.createElement('input')
 
-  inpFile.setAttribute('id', options.name)
-  inpFile.setAttribute('type', 'file')
-  inpFile.setAttribute('multiple', 'multiple')
-  inpFile.setAttribute('name', options.name)
-  inpFile.classList.add('cau-input-file')
+  eleForm.classList.add('cau-form')
 
-  options.target.classList.add('cau-wrapper')
+  eleInputFile.setAttribute('id', fileName)
+  eleInputFile.setAttribute('type', 'file')
+  eleInputFile.setAttribute('multiple', 'multiple')
+  eleInputFile.setAttribute('name', fileName)
+  eleInputFile.classList.add('cau-input-file')
 
-  options.target.appendChild(form)
-  form.appendChild(inpFile)
-  updateMsgAndSubmit(form, inpFile.files.length)
+  target.classList.add('cau-wrapper')
+
+  target.appendChild(eleForm)
+  eleForm.appendChild(eleInputFile)
+  updateMsgAndSubmit(eleForm, eleInputFile.files.length)
 
 
-  inpFile.addEventListener('change', function () {
-    updateMsgAndSubmit(form, this.files.length)
+  eleInputFile.addEventListener('change', function () {
+    updateMsgAndSubmit(eleForm, this.files.length)
   })
 
-  return { form, inpFile }
+  return { eleForm, eleInputFile }
 }
