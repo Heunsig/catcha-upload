@@ -1,6 +1,4 @@
-export function loadstartHandler (event, progressBar) {
-
-} 
+export function loadstartHandler (event, progressBar) { } 
 
 export function progressHandler (event, progressBar) {
   let percent = Math.round(event.loaded / event.total * 100)
@@ -10,7 +8,7 @@ export function progressHandler (event, progressBar) {
 }
 
 export function completeHandler (event, progressBar) {
-  console.log('complete', event)
+  // console.log('complete', event)
   progressBar.bar.style.backgroundColor = 'green'
 }
 
