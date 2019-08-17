@@ -1,3 +1,5 @@
+import CatchaUpload from '../catchaUpload'
+
 import Form from '../renderers/Form'
 import InputFile from '../renderers/InputFile'
 import Submit from '../renderers/Submit'
@@ -7,9 +9,9 @@ import FileList from '../renderers/FileList'
 import { uploadFiles } from '../upload/uploadFiles'
 
 export default function Init () {
-  const target = this.target
-  const fileName = this.fileName
-  const url = this.url
+  const target = CatchaUpload.target
+  const fileName = CatchaUpload.fileName
+  const url = CatchaUpload.url
 
   target.classList.add('cau-wrapper')
 
@@ -28,7 +30,6 @@ export default function Init () {
 
   inputFile.onChange((e, input) => {
     for (let file of input.files) {
-      console.log('file', file)
       fileList.add(file)
     }
   })

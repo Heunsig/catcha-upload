@@ -1,8 +1,9 @@
-import Test from '../test'
+import CatchaUpload from '../catchaUpload'
 
-export function isValidated (test) {
-  console.log(Test)
+export function isValidated (file) {
+  if (file.size > CatchaUpload.maximumFileSize) {
+    return false
+  }
+
+  return true
 }
-// export default () => {
-
-// }

@@ -22,7 +22,6 @@ FileList.prototype.add = function (newFile) {
   //   this.filesNotAlowed.push(fileStatusBar)
   //   return
   // }
-  // isValidated(newFile)
 
   this.fileStatusBars.push(fileStatusBar)
   this.print(fileStatusBar)

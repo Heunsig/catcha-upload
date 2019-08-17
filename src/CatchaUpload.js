@@ -1,13 +1,13 @@
 'use strict'
 
-import CatchaUploadConstructor from './lib/constructor'
+import CatchaUpload from './lib/catchaUpload'
 import renderInit from './lib/renderers/init'
 
+export default function (element, opts) {
+  CatchaUpload.init(element, opts)
 
-const CatchaUpload = function (element, opts) {
-  CatchaUploadConstructor.call(this, element, opts)
+  renderInit()
 
-  renderInit.call(this)
+  return CatchaUpload
 }
 
-export default CatchaUpload
