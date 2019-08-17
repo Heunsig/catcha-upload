@@ -49,6 +49,10 @@
   outline: none;
 }
 
+.cau-wrapper .cau-file-list {
+  position: relative;
+}
+
 .cau-wrapper .cau-form .cau-submit.cau-disabled {
   background: #b8b8b8;
   transition: none;
@@ -110,6 +114,13 @@
   overflow: hidden;
   text-align: center;
   color: #fff;
+}
+.cau-wrapper .cau-progress .cau-progress-delete {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
 }
 
 /*form p{
