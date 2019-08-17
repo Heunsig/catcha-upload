@@ -1,8 +1,10 @@
 import FileStatusBar from '../renderers/FileStatusBar'
 import { uniqueID } from '../helpers/string'
+import { isValidated } from '../validate/index'
 
 export default function FileList () {
   this.mainElement = document.createElement('div')
+  this.filesNotAlowed = []
   this.fileStatusBars = []
 
   setAttrs.call(this)
@@ -16,10 +18,14 @@ FileList.prototype.add = function (newFile) {
   const id = uniqueID()
   const fileStatusBar = new FileStatusBar(id, newFile, this)
 
+  // if (!isValidated(newFile)) {
+  //   this.filesNotAlowed.push(fileStatusBar)
+  //   return
+  // }
+  // isValidated(newFile)
+
   this.fileStatusBars.push(fileStatusBar)
   this.print(fileStatusBar)
-
-  // console.log('FileList', this)
 }
 
 FileList.prototype.remove = function (fileStatusBar) {
@@ -30,6 +36,11 @@ FileList.prototype.remove = function (fileStatusBar) {
   })
 
   this.mainElement.querySelector(`[data-id='${fileStatusBar.id}']`).remove()
+}
+
+// it clears only files, not fileStatusBar elements
+FileList.prototype.clearOnlyFiles = function () {
+  this.fileStatusBars = []
 }
 
 FileList.prototype.print = function (fileStatusBar) {

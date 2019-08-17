@@ -9,6 +9,7 @@ import { uploadFiles } from '../upload/uploadFiles'
 export default function Init () {
   const target = this.target
   const fileName = this.fileName
+  const url = this.url
 
   target.classList.add('cau-wrapper')
 
@@ -27,13 +28,15 @@ export default function Init () {
 
   inputFile.onChange((e, input) => {
     for (let file of input.files) {
+      console.log('file', file)
       fileList.add(file)
     }
   })
 
   form.onSubmit(e => {
     e.preventDefault()
-
-    // uploadFiles.call(this, inputFile.element.files)
+    uploadFiles(url, fileName, fileList)
+    fileList.clearOnlyFiles()
+    // console.log('hi')
   })
 }

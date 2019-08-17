@@ -1,4 +1,4 @@
-export default function (element, opts) {
+export default function Constructor (element, opts) {
   this.target = element ? element : null 
   this.url = 'http://localhost'
   this.fileName = 'media'
@@ -7,3 +7,8 @@ export default function (element, opts) {
 
   Object.assign(this, opts)
 }
+
+// Constructor.prototype.setting = function (element, opts) {
+//   this.target = element ? element:null
+//   Object.assign(this, opts)
+// }

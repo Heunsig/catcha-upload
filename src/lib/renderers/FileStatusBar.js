@@ -15,8 +15,6 @@ export default function FileStatusBar (id, file, parentComponent) {
   this.appendChild('deleteButton', createDeleteButton())
 
   attachEventsToDeleteButton.call(this)
-
-  // console.log(this)
 }
 
 function setAttrs () {
@@ -67,12 +65,27 @@ function attachEventsToDeleteButton () {
     e.preventDefault()
 
     this.parentComponent.remove(this)
-
-    // console.log(this.parentComponent)
+    // this.changeBarStyle(12)
   })
 }
 
 FileStatusBar.prototype.appendChild = function (name, childComponent) {
   this.mainElement.appendChild(childComponent)
   this.childElements = {...this.childElements, ...{ [name]: childComponent }}
+}
+
+FileStatusBar.prototype.progressingBar = function (percent) {
+  this.childElements.progressBar.firstChild.style.width = percent + '%'
+  this.childElements.progressBar.firstChild.innerText = percent + '%'
+}
+
+FileStatusBar.prototype.completedBar = function () {
+  this.childElements.progressBar.firstChild.style.backgroundColor = 'green'
+  this.childElements.deleteButton.setAttribute('disabled', 'disabled')
+  this.childElements.deleteButton.style.color = 'green'
+  this.childElements.deleteButton.innerText = 'Clear'
+}
+
+FileStatusBar.prototype.erredBar = function () {
+  
 }

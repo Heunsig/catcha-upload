@@ -1,15 +1,13 @@
-export function loadstartHandler (event, progressBar) { } 
+export function loadstartHandler (event, fileStatusBar) { } 
 
-export function progressHandler (event, progressBar) {
+export function progressHandler (event, fileStatusBar) {
   let percent = Math.round(event.loaded / event.total * 100)
 
-  progressBar.bar.style.width = percent + '%'
-  progressBar.bar.innerText = percent + '%'
+  fileStatusBar.progressingBar(percent)
 }
 
-export function completeHandler (event, progressBar) {
-  // console.log('complete', event)
-  progressBar.bar.style.backgroundColor = 'green'
+export function completeHandler (event, fileStatusBar) {
+  fileStatusBar.completedBar()
 }
 
 export function errorHandler (event) {
