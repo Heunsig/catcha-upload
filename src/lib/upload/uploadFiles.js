@@ -1,16 +1,15 @@
 import send from './send'
 
 export function uploadFiles (url, fileName, fileList) {
-  // console.log('fileList', fileList)
-  for (let i = 0 ; i < fileList.fileStatusBars.length ; i++) {
-    uploadSingleFile(url, fileName, fileList.fileStatusBars[i])
+  for (let i = 0 ; i < fileList.filesReady.length ; i++) {
+    uploadSingleFile(url, fileName, fileList, fileList.filesReady[i])
   }
 }
 
 
-function uploadSingleFile (url, fileName, fileStatusBar) {
+function uploadSingleFile (url, fileName, fileList, fileStatusBar) {
   const formData = new FormData()
   formData.append(fileName, fileStatusBar.file)
 
-  send(formData, url, fileStatusBar)
+  send(formData, url, fileList, fileStatusBar)
 }

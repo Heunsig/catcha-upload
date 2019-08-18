@@ -5,8 +5,10 @@ import InputFile from '../renderers/InputFile'
 import Submit from '../renderers/Submit'
 import Message from '../renderers/Message'
 import FileList from '../renderers/FileList'
+import FileStatusBar from '../renderers/FileStatusBar'
 
 import { uploadFiles } from '../upload/uploadFiles'
+import Validate from '../validate/index'
 
 export default function Init () {
   const target = CatchaUpload.target
@@ -21,8 +23,8 @@ export default function Init () {
   const inputFile = new InputFile(fileName)
   const fileList = new FileList()
   
-  target.appendChild(form.element)
-  target.appendChild(fileList.mainElement)
+  target.appendChild(form.render())
+  target.appendChild(fileList.render())
 
   form.append(inputFile)
   form.append(submit)
@@ -30,14 +32,26 @@ export default function Init () {
 
   inputFile.onChange((e, input) => {
     for (let file of input.files) {
-      fileList.add(file)
+      const validate = new Validate(file)
+      const fileStatusBar = new FileStatusBar(file, fileList, validate.getErrors())
+      
+      if (validate.isValidated()) {
+        fileList.addFileReady(fileStatusBar)
+      } else {
+        fileList.addFileDeclined(fileStatusBar)
+      }
     }
+
+    inputFile.clearFiles()
+
+    console.log('change input', fileList)
   })
 
   form.onSubmit(e => {
     e.preventDefault()
     uploadFiles(url, fileName, fileList)
     fileList.clearOnlyFiles()
+    console.log('uploaded', fileList)
     // console.log('hi')
   })
 }

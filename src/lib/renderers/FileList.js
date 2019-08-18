@@ -1,47 +1,73 @@
 import FileStatusBar from '../renderers/FileStatusBar'
 import { uniqueID } from '../helpers/string'
-import { isValidated } from '../validate/index'
+// import { isValidated } from '../validate/index'
 
 export default function FileList () {
   this.mainElement = document.createElement('div')
-  this.filesNotAlowed = []
-  this.fileStatusBars = []
-
-  setAttrs.call(this)
+  this.filesReadySection = document.createElement('div')
+  this.filesDeclinedSection = document.createElement('div')
+  // this.elementForFilesFailed = document.createElement('div')
+  this.filesUploaded = []
+  this.filesDeclined = []
+  this.filesReady = []
 }
 
 function setAttrs () {
-  this.mainElement.classList.add('cau-file-list')
+  this.filesReadySection.classList.add('cau-file-list')
+  // temp 
+  this.filesDeclinedSection.style.background = 'red'
+  // temp
 }
 
-FileList.prototype.add = function (newFile) {
-  const id = uniqueID()
-  const fileStatusBar = new FileStatusBar(id, newFile, this)
 
-  // if (!isValidated(newFile)) {
-  //   this.filesNotAlowed.push(fileStatusBar)
-  //   return
-  // }
-
-  this.fileStatusBars.push(fileStatusBar)
-  this.print(fileStatusBar)
-}
-
-FileList.prototype.remove = function (fileStatusBar) {
-  this.fileStatusBars = this.fileStatusBars = this.fileStatusBars.filter(bar => {
+function removeFile (fileArray, fileStatusBar) {
+  return fileArray.filter(bar => {
     if (bar !== fileStatusBar) {
       return bar
     }
   })
-
-  this.mainElement.querySelector(`[data-id='${fileStatusBar.id}']`).remove()
 }
+
+function removeFileStatusBar (id, parentElement) {
+  parentElement.querySelector(`[data-id='${id}']`).remove()
+}
+
+FileList.prototype.render = function () {
+  setAttrs.call(this)
+  this.mainElement.appendChild(this.filesReadySection)
+  this.mainElement.appendChild(this.filesDeclinedSection)
+
+  return this.mainElement
+}
+
+FileList.prototype.remove = function (fileStatusBar) {
+  if (fileStatusBar.hasErrors()) {
+    this.filesDeclined = removeFile(this.filesDeclined, fileStatusBar)
+  } else {
+    this.filesReady = removeFile(this.filesReady, fileStatusBar)
+  }
+
+  removeFileStatusBar(fileStatusBar.id, this.mainElement)
+}
+
 
 // it clears only files, not fileStatusBar elements
 FileList.prototype.clearOnlyFiles = function () {
-  this.fileStatusBars = []
+  this.filesReady = []
 }
 
-FileList.prototype.print = function (fileStatusBar) {
-  this.mainElement.appendChild(fileStatusBar.mainElement)
+FileList.prototype.addFileUploaded = function (fileStatusBar) {
+  this.filesUploaded.push(fileStatusBar)
 }
+
+FileList.prototype.addFileReady = function (fileStatusBar) {
+  this.filesReadySection.appendChild(fileStatusBar.render())
+  this.filesReady.push(fileStatusBar)
+}
+
+FileList.prototype.addFileDeclined = function (fileStatusBar) {
+  this.filesDeclinedSection.appendChild(fileStatusBar.render())
+  this.filesDeclined.push(fileStatusBar)
+}
+
+

@@ -1,34 +1,38 @@
 import Message from './Message'
 
 export default function InputFile (fileName) {
-  this.element = document.createElement('input')
-
-  setAttrs.call(this, fileName)
+  this.fileName = fileName
+  this.mainElement = document.createElement('input')
 }
 
-function setAttrs (fileName) {
-  this.element.setAttribute('id', fileName)
-  this.element.setAttribute('type', 'file')
-  this.element.setAttribute('multiple', 'multiple')
-  this.element.setAttribute('name', fileName)
-  this.element.classList.add('cau-input-file')
+function setAttrs () {
+  this.mainElement.setAttribute('id', this.fileName)
+  this.mainElement.setAttribute('type', 'file')
+  this.mainElement.setAttribute('multiple', 'multiple')
+  this.mainElement.setAttribute('name', this.fileName)
+  this.mainElement.classList.add('cau-input-file')
+}
+
+InputFile.prototype.render = function () {
+  setAttrs.call(this)
+  return this.mainElement
 }
 
 InputFile.prototype.onChange = function (cb) {
-  this.element.addEventListener('change', function (e) {
+  this.mainElement.addEventListener('change', function (e) {
     cb(e, this)
   })
 }
 
 InputFile.prototype.clearFiles = function () {
-  this.element.value = ''
-  this.trigger('change')
+  this.mainElement.value = ''
+  // this.trigger('change')
 }
 
 InputFile.prototype.trigger = function (event) {
   const trigger = {
     change: () => {
-      this.element.dispatchEvent(new Event('change'))
+      this.mainElement.dispatchEvent(new Event('change'))
     }
   }
 

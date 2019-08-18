@@ -1,20 +1,26 @@
 import fileIcon from '../images/file_icon.png'
 import { readFile, isImage } from '../helpers/file'
+import { uniqueID } from '../helpers/string'
 
-export default function FileStatusBar (id, file, parentComponent) {
-  this.id = id
+export default function FileStatusBar (file, parentComponent, errors) {
+  this.id = uniqueID()
   this.mainElement = document.createElement('div')
   this.childElements = {}
   this.parentComponent = parentComponent
   this.file = file
+  this.errors = []
 
-  setAttrs.call(this)
+  this.errors = [ ...this.errors, ...errors ]
 
-  this.appendChild('preview', createPreview(this.file))
-  this.appendChild('progressBar', createProgressBar())
-  this.appendChild('deleteButton', createDeleteButton())
+  // this.error = {
+  //   isError: false,
+  //   errors: []
+  // }
 
-  attachEventsToDeleteButton.call(this)
+  // if (errors) {
+  //   this.error.isError = true
+  //   this.error.errors = errors
+  // }
 }
 
 function setAttrs () {
@@ -51,6 +57,13 @@ function createProgressBar () {
   return progressBar
 }
 
+function createErrorMsg (main) {
+  const errorMsg = document.createElement('div')
+  errorMsg.innerText = main.errors[0].msg
+
+  return errorMsg
+}
+
 function createDeleteButton () {
   const deleteButton = document.createElement('button')
   deleteButton.classList.add('cau-progress-delete')
@@ -65,8 +78,36 @@ function attachEventsToDeleteButton () {
     e.preventDefault()
 
     this.parentComponent.remove(this)
-    // this.changeBarStyle(12)
   })
+}
+
+function fileReady (main) {
+  main.appendChild('preview', createPreview(main.file))
+  main.appendChild('progressBar', createProgressBar())
+  main.appendChild('deleteButton', createDeleteButton())
+}
+
+function fileDeclined (main) {
+  main.appendChild('preview', createPreview(main.file))
+  main.appendChild('errorMessage', createErrorMsg(main))
+  main.appendChild('deleteButton', createDeleteButton())
+}
+
+FileStatusBar.prototype.hasErrors = function () {
+  return this.errors.length ? true : false
+}
+
+FileStatusBar.prototype.render = function () {
+  setAttrs.call(this)
+  if (this.hasErrors()) {
+    fileDeclined(this)
+  } else {
+    fileReady(this)
+  }
+
+  attachEventsToDeleteButton.call(this)
+
+  return this.mainElement
 }
 
 FileStatusBar.prototype.appendChild = function (name, childComponent) {
@@ -84,8 +125,4 @@ FileStatusBar.prototype.completedBar = function () {
   this.childElements.deleteButton.setAttribute('disabled', 'disabled')
   this.childElements.deleteButton.style.color = 'green'
   this.childElements.deleteButton.innerText = 'Clear'
-}
-
-FileStatusBar.prototype.erredBar = function () {
-  
 }

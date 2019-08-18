@@ -1,21 +1,24 @@
 export default function Form (callback) {
-  this.element = document.createElement('form')
-  this.innerForm = []
-
-  setAttrs.call(this)
+  this.mainElement = document.createElement('form')
+  this.childElements = []
 }
 
 function setAttrs () {
-  this.element.classList.add('cau-form')
+  this.mainElement.classList.add('cau-form')
+}
+
+Form.prototype.render = function () {
+  setAttrs.call(this)
+  return this.mainElement
 }
 
 Form.prototype.append = function (childElement) {
-  this.element.appendChild(childElement.element)
-  this.innerForm.push(childElement)
+  this.mainElement.appendChild(childElement.render())
+  this.childElements.push(childElement)
 }
 
 Form.prototype.onSubmit = function (callback) {
-  this.element.addEventListener('submit', e => {
+  this.mainElement.addEventListener('submit', e => {
     callback(e)
   })
 }
