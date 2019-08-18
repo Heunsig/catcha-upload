@@ -12,15 +12,6 @@ export default function FileStatusBar (file, parentComponent, errors) {
 
   this.errors = [ ...this.errors, ...errors ]
 
-  // this.error = {
-  //   isError: false,
-  //   errors: []
-  // }
-
-  // if (errors) {
-  //   this.error.isError = true
-  //   this.error.errors = errors
-  // }
 }
 
 function setAttrs () {
@@ -59,7 +50,7 @@ function createProgressBar () {
 
 function createErrorMsg (main) {
   const errorMsg = document.createElement('div')
-  errorMsg.innerText = main.errors[0].msg
+  errorMsg.innerText = main.errors[main.errors.length - 1].msg
 
   return errorMsg
 }

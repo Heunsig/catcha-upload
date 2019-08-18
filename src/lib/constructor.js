@@ -4,6 +4,7 @@ export default function Constructor () {
   this.fileName = 'media'
   this.maximumFileSize = 5000000
   this.minimumFileSize = 0
+  this.maximumFileNumber = 0
 }
 
 Constructor.prototype.init = function (element, opts) {

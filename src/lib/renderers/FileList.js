@@ -1,12 +1,10 @@
 import FileStatusBar from '../renderers/FileStatusBar'
 import { uniqueID } from '../helpers/string'
-// import { isValidated } from '../validate/index'
 
 export default function FileList () {
   this.mainElement = document.createElement('div')
   this.filesReadySection = document.createElement('div')
   this.filesDeclinedSection = document.createElement('div')
-  // this.elementForFilesFailed = document.createElement('div')
   this.filesUploaded = []
   this.filesDeclined = []
   this.filesReady = []

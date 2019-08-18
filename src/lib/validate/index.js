@@ -1,10 +1,16 @@
 import CatchaUpload from '../catchaUpload'
 import ErrorObj from './error'
 
-export default function Validate (file) {
+import maximumFileSize from './validators/maximumFileSize'
+import minimumFileSize from './validators/minimumFileSize'
+import maximumFileNumber from './validators/maximumFileNumber'
+
+export default function Validate (file, fileList) {
   this.errors = []
 
-  beginToValidate.call(this, file)
+  if (file) {
+    this.validate(file, fileList)
+  }
 }
 
 
@@ -16,19 +22,8 @@ Validate.prototype.getErrors = function () {
   return this.errors
 }
 
-function beginToValidate (file) {
-  checkMaximumFileSize.call(this, file)
-  checkMinimunFileSize.call(this, file)
-}
-
-function checkMaximumFileSize (file) {
-  if (file.size > CatchaUpload.maximumFileSize) {
-    this.errors.push(new ErrorObj('Over maximum file size.'))
-  }
-}
-
-function checkMinimunFileSize (file) {
-  if (file.size < CatchaUpload.minimumFileSize) {
-    this.errors.push(new ErrorObj('Less minimum file size.'))
-  }
+Validate.prototype.validate = function (file, fileList) {
+  maximumFileSize(file, this.errors)
+  minimumFileSize(file, this.errors)
+  maximumFileNumber(fileList, this.errors)
 }

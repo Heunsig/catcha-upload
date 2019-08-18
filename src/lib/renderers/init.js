@@ -32,7 +32,7 @@ export default function Init () {
 
   inputFile.onChange((e, input) => {
     for (let file of input.files) {
-      const validate = new Validate(file)
+      const validate = new Validate(file, fileList)
       const fileStatusBar = new FileStatusBar(file, fileList, validate.getErrors())
       
       if (validate.isValidated()) {
