@@ -1,13 +1,12 @@
 // import FileStatusBar from '../renderers/FileStatusBar'
 import TabMenu from './FileStatusSection/TabMenu'
 import FileStatusBar from './FileStatusSection/fileStatusBar/index'
-import { uniqueID } from '../helpers/string'
 
 export default function FileList () {
   this.mainElement = document.createElement('div')
-  this.tabMenu = new TabMenu()
-  this.filesReadySection = document.createElement('div')
-  this.filesDeclinedSection = document.createElement('div')
+  // this.tabMenu = new TabMenu()
+  // this.filesReadySection = document.createElement('div')
+  // this.filesDeclinedSection = document.createElement('div')
   this.filesUploaded = []
   this.filesDeclined = []
   this.filesReady = []
@@ -15,13 +14,12 @@ export default function FileList () {
 
 function setAttrs () {
   this.mainElement.classList.add('cau-status-section')
-  this.filesReadySection.classList.add('cau-files-ready', 'cau-tab', 'active')
-  this.filesDeclinedSection.classList.add('cau-files-declined', 'cau-tab')
+  // this.filesReadySection.classList.add('cau-files-ready', 'cau-tab', 'active')
+  // this.filesDeclinedSection.classList.add('cau-files-declined', 'cau-tab')
   // temp 
   // this.filesDeclinedSection.style.background = 'red'
   // temp
 }
-
 
 function removeFile (fileArray, fileStatusBar) {
   return fileArray.filter(bar => {
@@ -37,22 +35,13 @@ function removeFileStatusBar (id, parentElement) {
 
 FileList.prototype.render = function () {
   setAttrs.call(this)
-  this.mainElement.appendChild(this.tabMenu.render())
-  this.mainElement.appendChild(this.filesReadySection)
-  this.mainElement.appendChild(this.filesDeclinedSection)
+  
+  // this.mainElement.appendChild(this.tabMenu.render())
+  // this.mainElement.appendChild(this.filesReadySection)
+  // this.mainElement.appendChild(this.filesDeclinedSection)
 
-
-  ////////////////////////////////////////////////
-  // here no way to solve the rendering problem //
-  ////////////////////////////////////////////////
-  ////////////////////////////////////////////////
-  // here no way to solve the rendering problem //
-  ////////////////////////////////////////////////
-  ////////////////////////////////////////////////
-  // here no way to solve the rendering problem //
-  ////////////////////////////////////////////////
-  const hia = new FileStatusBar()
-  this.mainElement.appendChild(hia.render())
+  // const hia = new FileStatusBar()
+  // this.mainElement.appendChild(hia.render())
 
   return this.mainElement
 }

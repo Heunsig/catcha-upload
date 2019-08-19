@@ -5,11 +5,11 @@ import maximumFileSize from './validators/maximumFileSize'
 import minimumFileSize from './validators/minimumFileSize'
 import maximumFileNumber from './validators/maximumFileNumber'
 
-export default function Validate (file, fileList) {
+export default function Validate (file, totalFilesNum) {
   this.errors = []
 
   if (file) {
-    this.validate(file, fileList)
+    this.validate(file, totalFilesNum)
   }
 }
 
@@ -22,8 +22,8 @@ Validate.prototype.getErrors = function () {
   return this.errors
 }
 
-Validate.prototype.validate = function (file, fileList) {
+Validate.prototype.validate = function (file, totalFilesNum) {
   maximumFileSize(file, this.errors)
   minimumFileSize(file, this.errors)
-  maximumFileNumber(fileList, this.errors)
+  maximumFileNumber(totalFilesNum, this.errors)
 }

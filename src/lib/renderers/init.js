@@ -1,5 +1,6 @@
 import CatchaUpload from '../catchaUpload'
 
+import Wrapper from '../renderers/Wrapper'
 import Form from '../renderers/Form'
 import InputFile from '../renderers/InputFile'
 import Submit from '../renderers/Submit'
@@ -11,24 +12,22 @@ import { uploadFiles } from '../upload/uploadFiles'
 import Validate from '../validate/index'
 
 export default function Init () {
-  const target = CatchaUpload.target
   const fileName = CatchaUpload.fileName
   const url = CatchaUpload.url
 
-  target.classList.add('cau-wrapper')
-
+  const wrapper = new Wrapper(CatchaUpload.target)
   const form = new Form()
   const message = new Message()
   const submit = new Submit()
   const inputFile = new InputFile(fileName)
   const fileList = new FileList()
-  
-  target.appendChild(form.render())
-  target.appendChild(fileList.render())
 
-  form.append(inputFile)
-  form.append(submit)
-  form.append(message)
+  wrapper.appendChild(form)
+  wrapper.appendChild(fileList)
+
+  form.appendChild(inputFile)
+  form.appendChild(submit)
+  form.appendChild(message)
 
   inputFile.onChange((e, input) => {
     for (let file of input.files) {
@@ -52,6 +51,7 @@ export default function Init () {
     uploadFiles(url, fileName, fileList)
     fileList.clearOnlyFiles()
     console.log('uploaded', fileList)
-    // console.log('hi')
   })
+
+  wrapper.render()
 }

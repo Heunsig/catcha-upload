@@ -1,14 +1,17 @@
-export function loadstartHandler (event, fileList, fileStatusBar) { } 
+import FileStatus from '../newRenderers/FileStatus'
 
-export function progressHandler (event, fileList, fileStatusBar) {
+export function loadstartHandler (event,  fileStatusBar) { 
+  fileStatusBar.renderStatusInProgress()
+} 
+
+export function progressHandler (event,  fileStatusBar) {
   let percent = Math.round(event.loaded / event.total * 100)
-
-  fileStatusBar.progressingBar(percent)
+  fileStatusBar.changePercentage(percent)
 }
 
-export function completeHandler (event, fileList, fileStatusBar) {
-  fileStatusBar.completedBar()
-  fileList.addFileUploaded(fileStatusBar)
+export function completeHandler (event,  fileStatusBar) {
+  fileStatusBar.complete()
+  FileStatus.addFileUploaded(fileStatusBar)
 }
 
 export function errorHandler (event) {

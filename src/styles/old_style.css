@@ -1,0 +1,163 @@
+.cau-wrapper {
+  width: 500px;
+}
+.cau-wrapper .cau-form {
+  position: relative;
+  /*width: 100%;*/
+  height: 200px;
+  /*width: 500px;
+  height: 200px;*/
+  border: 4px dashed red;
+}
+
+.cau-wrapper .cau-form .cau-msg {
+  position: absolute;
+  top: 50%;
+  margin-top: -25px;
+  z-index: 9;
+  width: 100%;
+  text-align: center;
+  color: #000;
+  font-family: Arial;
+}
+
+.cau-wrapper .cau-form .cau-input-file {
+  position: absolute;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+
+.cau-wrapper .cau-form .cau-submit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  margin: 0;
+  color: #fff;
+  background: #16a085;
+  border: none;
+  width: 100%;
+  height: 35px;
+  border-radius: 4px;
+  border-bottom: 4px solid #117A60;
+  transition: all .2s ease;
+  outline: none;
+}
+
+.cau-wrapper .cau-file-list {
+  position: relative;
+}
+
+.cau-wrapper .cau-form .cau-submit.cau-disabled {
+  background: #b8b8b8;
+  transition: none;
+  border-bottom: 4px solid #8d8d8d;
+}
+
+.cau-wrapper .cau-form .cau-submit.cau-disabled:hover {
+  background: #b8b8b8;
+  color: #fff;
+}
+
+.cau-wrapper .cau-form .cau-submit:hover{
+  background: #149174;
+  color: #0C5645;
+}
+.cau-wrapper .cau-form .cau-submit:active{
+  border:0;
+}
+
+.cau-wrapper .cau-progress {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.cau-wrapper .cau-preview { 
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  background-size: cover;
+  background-position: center; 
+  /*background:url('')*/
+}
+
+.cau-wrapper .cau-progress-bar {
+  flex: 1 1 auto;
+  height: 25px;
+  background: grey;
+  border-radius: 15px;
+  padding: 6px;
+}
+
+.cau-wrapper .cau-bar { 
+  width: 0%;
+  height: 100%;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: #eff84d;
+  background-image: linear-gradient(
+    center bottom,
+    rgb(43,194,83) 37%,
+    rgb(84,240,84) 69%
+  );
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+}
+.cau-wrapper .cau-progress .cau-progress-delete {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/*form p{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 170px;
+  color: #ffffff;
+  font-family: Arial;
+}
+form input{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+form button{
+  margin: 0;
+  color: #fff;
+  background: #16a085;
+  border: none;
+  width: 508px;
+  height: 35px;
+  border-radius: 4px;
+  border-bottom: 4px solid #117A60;
+  transition: all .2s ease;
+  outline: none;
+}
+form button:hover{
+  background: #149174;
+  color: #0C5645;
+}
+form button:active{
+  border:0;
+}*/
+
+
+

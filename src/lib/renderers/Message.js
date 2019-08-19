@@ -5,7 +5,7 @@ export default function Message () {
 }
 
 function setAttrs () {
-  this.mainElement.classList.add('cau-msg')
+  this.mainElement.classList.add('cau-form-msg')
 }
 
 Message.prototype.render = function () {

@@ -12,7 +12,7 @@ Form.prototype.render = function () {
   return this.mainElement
 }
 
-Form.prototype.append = function (childElement) {
+Form.prototype.appendChild = function (childElement) {
   this.mainElement.appendChild(childElement.render())
   this.childElements.push(childElement)
 }

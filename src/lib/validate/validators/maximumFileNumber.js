@@ -1,10 +1,10 @@
 import CatchaUpload from '../../catchaUpload'
 import ErrorObj from '../error'
 
-export default (fileList, errors) => {
-  let filesNumber = fileList.filesUploaded.length + fileList.filesReady.length
+export default (totalFilesNum, errors) => {
+  // let filesNumber = totalFilesNum.length + totalFilesNum.length
   if (CatchaUpload.maximumFileNumber) {
-    if (filesNumber >= CatchaUpload.maximumFileNumber) {
+    if (totalFilesNum >= CatchaUpload.maximumFileNumber) {
       errors.push(new ErrorObj('Overflow.'))
     } 
   }

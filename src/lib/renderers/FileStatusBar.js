@@ -15,13 +15,13 @@ export default function FileStatusBar (file, parentComponent, errors) {
 }
 
 function setAttrs () {
-  this.mainElement.classList.add('cau-progress')
+  this.mainElement.classList.add('cau-file-status-bar')
   this.mainElement.dataset.id = this.id
 }
 
 function createPreview (file) {
   const preview = document.createElement('div')
-  preview.classList.add('cau-preview')
+  preview.classList.add('cau-file-preview')
 
   preview.style.backgroundImage = `url("${fileIcon}")`
 
@@ -32,6 +32,11 @@ function createPreview (file) {
   })
 
   return preview
+}
+
+function createFileStatus () {
+  const fileStatus = document.createElement('div')
+  return fileStatus
 }
 
 function createProgressBar () {

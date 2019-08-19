@@ -25,8 +25,8 @@
     </form>
     <div class="cau-status-section">
       <div class="cau-tab-menu">
-        <a href="#" class="cau-item active" data-tab="cau-files-ready">Ready (1)</a>
-        <a href="#" class="cau-item declined" data-tab="cau-files-declined">Declined (11)</a>
+        <a href="#" class="cau-tab-item active" data-tab="cau-files-ready">Ready (1)</a>
+        <a href="#" class="cau-tab-item cau-color-danger active" data-tab="cau-files-declined">Declined (11)</a>
       </div>
       <div class="cau-files-ready cau-tab active">
         <div class="cau-file-status-bar">
@@ -37,8 +37,8 @@
               <div class="cau-file-size">124MB</div>
             </div>
             <div class="cau-file-progressbar-box">
-              <div class="cau-file-progressbar-menu" style="flex: 1 1 auto;">
-                <button type="button" class="cau-file-progressbar-menu-btn">remove</button>
+              <div class="cau-file-progressbar-menu">
+                <button type="button" class="cau-file-progressbar-remove-btn">remove</button>
               </div>
               <div class="cau-file-progressbar-percentage">ready</div>
             </div>
@@ -71,6 +71,24 @@
                 <div class="cau-file-progressbar completed"></div>  
               </div>
               <div class="cau-file-progressbar-percentage completed">100%</div>
+            </div>
+          </div>
+        </div>
+        <div class="cau-file-status-bar completed">
+          <div class="cau-file-preview"></div>
+          <div class="cau-file-status">
+            <div class="cau-file-info">
+              <div class="cau-file-name">filename.jpg</div>
+              <div class="cau-file-size">124KB</div>
+            </div>
+            <div class="cau-file-progressbar-box">
+              <div class="cau-file-error-box">
+                <ul class="cau-file-error">
+                  <li>Oversized file</li>
+                  <li>Overflow the maximum file number</li>
+                  <li>Type error</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
