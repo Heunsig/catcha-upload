@@ -1,4 +1,4 @@
-import CatchaUpload from '../catchaUpload'
+// import CatchaUpload from '../catchaUpload'
 
 import { createCORSRequest } from '../helpers/cors'
 import {
@@ -11,8 +11,8 @@ import {
 
 
 
-export default (formData, fileStatusBar) => {
-  const url = CatchaUpload.url
+export default (catchaUpload, formData, fileStatusBar) => {
+  const url = catchaUpload.url
   const xhr = createCORSRequest('POST', url)
   if (!xhr) {
     alert('CORS not supported')

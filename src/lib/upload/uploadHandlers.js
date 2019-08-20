@@ -1,4 +1,4 @@
-import FileStatus from '../newRenderers/FileStatus'
+// import FileStatus from '../newRenderers/FileStatus'
 
 export function loadstartHandler (event,  fileStatusBar) { 
   fileStatusBar.renderStatusInProgress()
@@ -11,7 +11,8 @@ export function progressHandler (event,  fileStatusBar) {
 
 export function completeHandler (event,  fileStatusBar) {
   fileStatusBar.complete()
-  FileStatus.addFileUploaded(fileStatusBar)
+  fileStatusBar.fileStatus.addFileUploaded(fileStatusBar)
+  // FileStatus.addFileUploaded(fileStatusBar)
 }
 
 export function errorHandler (event) {

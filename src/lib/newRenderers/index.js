@@ -1,19 +1,22 @@
-import CatchaUpload from '../catchaUpload'
+// import CatchaUpload from '../catchaUpload'
 
 import FileStatus from './FileStatus'
-
 import Validate from '../validate'
 
-import { uploadFiles } from '../upload/uploadFiles'
+import Upload from '../upload/uploadFiles'
 
-function Renderer () {
-  this.target = CatchaUpload.target
-  this.fileName = CatchaUpload.fileName
+function Renderer (catchaUpload) {
+  // this.target = CatchaUpload.target
+  // this.fileName = CatchaUpload.fileName
+  this.catchaUpload = catchaUpload
+  // this.fileStatus = new FileStatus(catchaUpload)
+  this.target = catchaUpload.target
+  this.fileName = catchaUpload.fileName
 
 }
 
-Renderer.prototype.render = function (target) {
-  target.innerHTML = `
+Renderer.prototype.render = function () {
+  this.target.innerHTML = `
     <div class="cau-wrapper">
       <form class="cau-form">
         <input type="file" id="${this.fileName}" name="${this.fileName}" class="cau-input-file" multiple/>
@@ -26,44 +29,55 @@ Renderer.prototype.render = function (target) {
   `
 }
 
-Renderer.prototype.init = function (target) {
-  this.render(target)
+Renderer.prototype.init = function () {
+  this.render()
+
+  const target = this.target
   const wrapper = target.querySelector('.cau-wrapper')
   const inputFile = target.querySelector('.cau-input-file')
   const form = target.querySelector('.cau-form')
 
-  wrapper.appendChild(FileStatus.render())
+  // const fileStatus = new FileStatus()
+  const fileStatus = new FileStatus()
 
-  inputFile.addEventListener('change', function (e) {
+  // wrapper.appendChild(FileStatus.render())
+  wrapper.appendChild(fileStatus.render())
+
+  inputFile.addEventListener('change', (e) => {
     e.preventDefault()
 
-    let files = this.files
+    let files = inputFile.files
     for (let file of files) {
-      const validate = new Validate(file, FileStatus.filesUploaded + FileStatus.filesReady)
+      const validate = new Validate(this.catchaUpload, file, fileStatus.filesUploaded.length + fileStatus.filesReady.length)
 
       if (validate.isValidated()) {
-        FileStatus.addFileReady(file)
+        fileStatus.addFileReady(file)
       } else {
-        FileStatus.addFileDeclined(file, validate.getErrors())
+        fileStatus.addFileDeclined(file, validate.getErrors())
       }
     }
 
-    FileStatus.changeFilesCounter()
-    this.value = ''
+    fileStatus.changeFilesCounter()
+    inputFile.value = ''
+    // this.value = ''
   })
 
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
 
-    uploadFiles()
+    console.log('hi', fileStatus)
+    const upload = new Upload(this.catchaUpload, fileStatus.filesReady)
+    upload.upload()
+    // uploadFiles(this)
 
-    FileStatus.clearFilesReady()
-    FileStatus.changeFilesCounter()
-    console.log('dd', FileStatus)
+    fileStatus.clearFilesReady()
+    fileStatus.changeFilesCounter()
+    console.log('dd', fileStatus)
   })
 }
 
 
-const renderer = new Renderer()
-export default renderer
+// const renderer = new Renderer()
+// export default renderer
+export default Renderer

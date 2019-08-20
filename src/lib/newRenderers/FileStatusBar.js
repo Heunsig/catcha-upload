@@ -1,10 +1,11 @@
-import FileStatus from './FileStatus'
+// import FileStatus from './FileStatus'
 import fileIcon from '../images/file_icon.png'
 import { readFile, isImage, humanFileSize } from '../helpers/file'
 import { uniqueID } from '../helpers/string'
 
-function FileStatusBar (file) {
+function FileStatusBar (fileStatus, file) {
   this.element = document.createElement('div')
+  this.fileStatus = fileStatus
   this.id = uniqueID()
   this.file = file
   this.fileName = file.name
@@ -55,14 +56,14 @@ FileStatusBar.prototype.renderStatusReady = function () {
     e.preventDefault()
 
     if (this.hasErrors()) {
-      FileStatus.removeFile('filesDeclined', this)
+      fileStatus.removeFile('filesDeclined', this)
     } else {
-      FileStatus.removeFile('filesReady', this)
+      fileStatus.removeFile('filesReady', this)
     }
 
-    FileStatus.element.querySelector(`[data-id='${this.id}']`).remove()
+    fileStatus.element.querySelector(`[data-id='${this.id}']`).remove()
 
-    console.log('removed', FileStatus)
+    console.log('removed', fileStatus)
   })
 
   return this.element

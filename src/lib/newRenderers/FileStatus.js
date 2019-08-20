@@ -1,4 +1,4 @@
-import CatchaUpload from '../catchaUpload'
+// import CatchaUpload from '../catchaUpload'
 import FileStatusBar from './FileStatusBar'
 
 function FileStatus () {
@@ -61,9 +61,12 @@ FileStatus.prototype.render = function () {
   return this.element
 }
 
+FileStatus.prototype.createFileStatusBar = function (file) {
+  return new FileStatusBar(this, file)
+}
 
 FileStatus.prototype.addFileReady = function (file) {
-  const fileStatusBar = new FileStatusBar(file)
+  const fileStatusBar = this.createFileStatusBar(file)
   const filesReady = this.element.querySelector('.cau-files-ready')
   this.filesReady.push(fileStatusBar)
 
@@ -79,7 +82,7 @@ FileStatus.prototype.addFileReady = function (file) {
 }
 
 FileStatus.prototype.addFileDeclined = function (file, errors) {
-  const fileStatusBar = new FileStatusBar(file)
+  const fileStatusBar = this.createFileStatusBar(file)
   fileStatusBar.addErrors(errors)
 
   const filesDeclined = this.element.querySelector('.cau-files-declined')
@@ -114,5 +117,6 @@ FileStatus.prototype.changeFilesCounter = function () {
   fileDeclinedCounter.innerText = `(${this.filesDeclined.length})`
 }
 
-const fileStatus = new FileStatus()
-export default fileStatus
+// const fileStatus = new FileStatus()
+// export default fileStatus
+export default FileStatus
