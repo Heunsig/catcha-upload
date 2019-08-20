@@ -1,11 +1,32 @@
-// import CatchaUpload from '../catchaUpload'
 import FileStatusBar from './FileStatusBar'
 
-function FileStatus () {
+function FileStatus (catchaUpload) {
   this.element = document.createElement('div')
   this.filesUploaded = []
   this.filesDeclined = []
   this.filesReady = []
+}
+
+function activeTabMenu (element, tabMenus, tabs) {
+  for (let menu of tabMenus) {
+    menu.addEventListener('click', (e, i) => {
+      e.preventDefault()
+      let target = e.target.localName === 'span' ? e.target.parentElement : e.target
+
+      for (let m of tabMenus) {
+        m.classList.remove('active')
+      }
+
+      target.classList.add('active') 
+
+      for (let t of tabs) {
+        t.classList.remove('active')
+      }
+
+      const tab = element.querySelector('.' + target.dataset.tab)
+      tab.classList.add('active')
+    })
+  }
 }
 
 FileStatus.prototype.render = function () {
@@ -21,42 +42,11 @@ FileStatus.prototype.render = function () {
     </div>
   `
 
-  const tabMenus = this.element.querySelectorAll('.cau-tab-item')
-  const tabs = this.element.querySelectorAll('.cau-tab')
-
-  function test () {
-    for (let tab of tabs) {
-      console.log(tab)
-    }
-  }
-  // console.log('tabs', tabs[)
-  for (let menu of tabMenus) {
-    menu.addEventListener('click', (e, i) => {
-      let target = e.target
-      if (e.target.localName === 'span') {
-        target = e.target.parentElement
-      }
-
-      e.preventDefault()
-      for (let m of tabMenus) {
-        m.classList.remove('active')
-      }
-      tabMenus.forEach(m => {
-        m.classList.remove('active')
-      })
-
-      target.classList.add('active') 
-      tabs.forEach(m => {
-        m.classList.remove('active')
-      })
-      console.log('doo')
-
-      // Need to fix here sometimes it cannot be found tab classList becuase querySelector is slow.
-      console.log(target.dataset)
-      const tab = this.element.querySelector('.' + target.dataset.tab)  
-      tab.classList.add('active')
-    })
-  }
+  activeTabMenu(
+    this.element,
+    this.element.querySelectorAll('.cau-tab-item'), 
+    this.element.querySelectorAll('.cau-tab')
+  )
 
   return this.element
 }
@@ -70,14 +60,9 @@ FileStatus.prototype.addFileReady = function (file) {
   const filesReady = this.element.querySelector('.cau-files-ready')
   this.filesReady.push(fileStatusBar)
 
-  // append theKid to the end of theParent
-  // filesReady.appendChild(fileStatusBar.renderStatusReady());
-
-  // // prepend theKid to the beginning of theParent
-  // filesReady.insertBefore(fileStatusBar.renderStatusReady(), filesReady.firstChild);
   filesReady.appendChild(fileStatusBar.renderStatusReady())
   
-  console.log('filesReady', this.filesReady)
+  // console.log('filesReady', this.filesReady)
   
 }
 
@@ -89,12 +74,12 @@ FileStatus.prototype.addFileDeclined = function (file, errors) {
   this.filesDeclined.push(fileStatusBar)
 
   filesDeclined.appendChild(fileStatusBar.renderStatusDeclined())
-  console.log('filesDeclined', this.filesDeclined)
+  // console.log('filesDeclined', this.filesDeclined)
 }
 
 FileStatus.prototype.addFileUploaded = function (fileStatusBar) {
   this.filesUploaded.push(fileStatusBar)
-  console.log('filesUploaded', this.filesUploaded)
+  // console.log('filesUploaded', this.filesUploaded)
 }
 
 FileStatus.prototype.clearFilesReady = function () {
@@ -117,6 +102,4 @@ FileStatus.prototype.changeFilesCounter = function () {
   fileDeclinedCounter.innerText = `(${this.filesDeclined.length})`
 }
 
-// const fileStatus = new FileStatus()
-// export default fileStatus
 export default FileStatus

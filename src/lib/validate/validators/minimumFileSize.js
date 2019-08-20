@@ -1,8 +1,7 @@
-// import CatchaUpload from '../../catchaUpload'
 import ErrorObj from '../error'
 
-export default (catchaUpload, file, errors) => {
-  if (file.size < catchaUpload.minimumFileSize) {
+export default (minimumFileSize, file, errors) => {
+  if (file.size < minimumFileSize) {
     errors.push(new ErrorObj('Less minimum file size.'))
   }
 }

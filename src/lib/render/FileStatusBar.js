@@ -1,21 +1,51 @@
-// import FileStatus from './FileStatus'
 import fileIcon from '../images/file_icon.png'
 import { readFile, isImage, humanFileSize } from '../helpers/file'
 import { uniqueID } from '../helpers/string'
 
 function FileStatusBar (fileStatus, file) {
   this.element = document.createElement('div')
-  this.fileStatus = fileStatus
   this.id = uniqueID()
   this.file = file
   this.fileName = file.name
   this.fileSize = humanFileSize(file.size, true)
   this.errors = []
+  this.fileStatus = fileStatus
 
   this.progressBarElement = null
   this.percentageElement = null
 
   this.renderLayout()
+}
+
+function createPreview (previeElement, file) {
+  previeElement.style.backgroundImage = `url("${fileIcon}")`
+  readFile(file).then(res => {
+    if (isImage(res)) {
+      previeElement.style.backgroundImage = `url("${res}")`
+    }
+  })
+}
+
+function attachClickEventToDelBtn (deleteBtnElement, fileStatusBar) {
+  deleteBtnElement.addEventListener('click', e => {
+    e.preventDefault()
+
+    if (fileStatusBar.hasErrors()) {
+      fileStatusBar.fileStatus.removeFile('filesDeclined', fileStatusBar)
+    } else {
+      fileStatusBar.fileStatus.removeFile('filesReady', fileStatusBar)
+    }
+
+    fileStatusBar.fileStatus.element.querySelector(`[data-id='${fileStatusBar.id}']`).remove()
+  })
+}
+
+function createErrorList (fileErrorsElement, errors) {
+  for (let error of errors) {
+    const li = document.createElement('li')
+    li.innerText = error.msg
+    fileErrorsElement.appendChild(li)  
+  }
 }
 
 FileStatusBar.prototype.renderLayout = function () {
@@ -32,39 +62,20 @@ FileStatusBar.prototype.renderLayout = function () {
       </div>
     </div>
   `
-
-  const preview =  this.element.querySelector('.cau-file-preview')
-  preview.style.backgroundImage = `url("${fileIcon}")`
-  readFile(this.file).then(res => {
-    if (isImage(res)) {
-      preview.style.backgroundImage = `url("${res}")`
-    }
-  })
+  createPreview(this.element.querySelector('.cau-file-preview'), this.file)
+  
 }
 
 FileStatusBar.prototype.renderStatusReady = function () {
   const fileProgressBarBox = this.element.querySelector('.cau-file-progressbar-box')
   fileProgressBarBox.innerHTML = `
     <div class="cau-file-progressbar-menu">
-      <button type="button" class="cau-file-progressbar-remove-btn">remove</button>
+      <button type="button" class="cau-file-progressbar-remove-btn">Remove</button>
     </div>
     <div class="cau-file-progressbar-percentage">ready</div>
   `
 
-  const deleteBtn = this.element.querySelector('.cau-file-progressbar-remove-btn')
-  deleteBtn.addEventListener('click', e => {
-    e.preventDefault()
-
-    if (this.hasErrors()) {
-      fileStatus.removeFile('filesDeclined', this)
-    } else {
-      fileStatus.removeFile('filesReady', this)
-    }
-
-    fileStatus.element.querySelector(`[data-id='${this.id}']`).remove()
-
-    console.log('removed', fileStatus)
-  })
+  attachClickEventToDelBtn(this.element.querySelector('.cau-file-progressbar-remove-btn'), this)
 
   return this.element
 }
@@ -73,22 +84,9 @@ FileStatusBar.prototype.renderStatusDeclined = function () {
   const fileProgressBarBox = this.element.querySelector('.cau-file-progressbar-box')
   const fileErrors = document.createElement('ul')
   fileErrors.classList.add('cau-file-error')
-
-  for (let error of this.errors) {
-    const li = document.createElement('li')
-    li.innerText = error.msg
-    fileErrors.appendChild(li)  
-  }
+  createErrorList(fileErrors, this.errors)
 
   fileProgressBarBox.appendChild(fileErrors)
-
-  // fileProgressBarBox.innerHTML = `
-  //   <ul class="cau-file-error">
-  //     <li>Oversized file</li>
-  //     <li>Overflow the maximum file number</li>
-  //     <li>Type error</li>
-  //   </ul>
-  // `
 
   return this.element
 }

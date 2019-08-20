@@ -1,4 +1,3 @@
-// import CatchaUpload from '../catchaUpload'
 import ErrorObj from './error'
 
 import maximumFileSize from './validators/maximumFileSize'
@@ -24,7 +23,7 @@ Validate.prototype.getErrors = function () {
 }
 
 Validate.prototype.validate = function (file, totalFilesNum) {
-  maximumFileSize(this.catchaUpload, file, this.errors)
-  minimumFileSize(this.catchaUpload, file, this.errors)
-  maximumFileNumber(this.catchaUpload, totalFilesNum, this.errors)
+  maximumFileSize(this.catchaUpload.maximumFileSize, file, this.errors)
+  minimumFileSize(this.catchaUpload.minimumFileSize, file, this.errors)
+  maximumFileNumber(this.catchaUpload.maximumFileNumber, totalFilesNum, this.errors)
 }
