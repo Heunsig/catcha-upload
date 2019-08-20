@@ -2,6 +2,8 @@ import Renderer from './render'
 
 export default function Constructor (target, opts) {
   this.target = null
+  this.width = '500px'
+  this.dropZoneSize = '150px'
   this.url = 'http://localhost'
   this.inputFileName = 'media'
   this.maximumFileSize = 5000000
