@@ -76,11 +76,13 @@ Renderer.prototype.init = function () {
   form.addEventListener('submit', (e) => {
     e.preventDefault()
 
-    const upload = new Upload(catchaUpload, fileStatus.filesReady)
-    upload.upload()
+    if (fileStatus.filesReady.length) {
+      const upload = new Upload(catchaUpload, fileStatus.filesReady)
+      upload.upload()
 
-    fileStatus.clearFilesReady()
-    fileStatus.changeFilesCounter()
+      fileStatus.clearFilesReady()
+      fileStatus.changeFilesCounter()  
+    }
   })
 }
 

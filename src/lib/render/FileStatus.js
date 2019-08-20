@@ -29,6 +29,14 @@ function activeTabMenu (element, tabMenus, tabs) {
   }
 }
 
+function prependChild (element, child) {
+  if (!element.children.length) {
+    element.appendChild(child)
+  } else {
+    element.insertBefore(child, element.firstChild);
+  }
+}
+
 FileStatus.prototype.render = function () {
   this.element.classList.add('cau-status-section')
   this.element.innerHTML = `
@@ -57,24 +65,19 @@ FileStatus.prototype.createFileStatusBar = function (file) {
 
 FileStatus.prototype.addFileReady = function (file) {
   const fileStatusBar = this.createFileStatusBar(file)
-  const filesReady = this.element.querySelector('.cau-files-ready')
+  const filesReadyElement = this.element.querySelector('.cau-files-ready')
   this.filesReady.push(fileStatusBar)
 
-  filesReady.appendChild(fileStatusBar.renderStatusReady())
-  
-  // console.log('filesReady', this.filesReady)
-  
+  prependChild(filesReadyElement, fileStatusBar.renderStatusReady())
 }
 
 FileStatus.prototype.addFileDeclined = function (file, errors) {
   const fileStatusBar = this.createFileStatusBar(file)
   fileStatusBar.addErrors(errors)
-
-  const filesDeclined = this.element.querySelector('.cau-files-declined')
+  const filesDeclinedElement = this.element.querySelector('.cau-files-declined')
   this.filesDeclined.push(fileStatusBar)
 
-  filesDeclined.appendChild(fileStatusBar.renderStatusDeclined())
-  // console.log('filesDeclined', this.filesDeclined)
+  prependChild(filesDeclinedElement, fileStatusBar.renderStatusDeclined())
 }
 
 FileStatus.prototype.addFileUploaded = function (fileStatusBar) {

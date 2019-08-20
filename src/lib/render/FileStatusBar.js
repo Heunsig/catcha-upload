@@ -37,6 +37,7 @@ function attachClickEventToDelBtn (deleteBtnElement, fileStatusBar) {
     }
 
     fileStatusBar.fileStatus.element.querySelector(`[data-id='${fileStatusBar.id}']`).remove()
+    fileStatusBar.fileStatus.changeFilesCounter()
   })
 }
 

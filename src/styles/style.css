@@ -205,6 +205,7 @@
 }
 
 .cau-file-error {
+  margin: 6px;
   padding-left: 20px;
   font-size: 14px;
   color: #ff4a4a;
