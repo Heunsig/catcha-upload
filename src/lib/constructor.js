@@ -1,6 +1,8 @@
-import Renderer from './render'  
+import Renderer from './render'
+import pjson from '../../package.json'  
 
 export default function Constructor (target, opts) {
+  this.version = pjson.version
   this.target = null
   this.width = '500px'
   this.dropZoneSize = '150px'
