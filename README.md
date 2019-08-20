@@ -1,3 +1,7 @@
+# Catcha Upload
+A simple and light file upload plugin without dependant libraries
+
+## Version  
+0.0.18
+
 ## Bug report
-* When it is used two times, the two plugins do not work properly.
-* Refactor all codes.
