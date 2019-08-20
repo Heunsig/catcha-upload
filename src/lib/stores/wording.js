@@ -1,8 +1,11 @@
 export default {
-  guidance () {
-    return 'Drag your files here or click in this area.'
+  beforeDragEnter () {
+    return 'Drag your files here or click in this area'
   },
-  fileCounter (counter) {
-    return `${counter} file(s) selected`
+  afterDragEnter () {
+    return 'Drop your files here'
   }
+  // fileCounter (counter) {
+  //   return `${counter} file(s) selected`
+  // }
 } 

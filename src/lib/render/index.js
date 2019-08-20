@@ -1,6 +1,7 @@
 import FileStatus from './FileStatus'
 import Validate from '../validate'
 import Upload from '../upload'
+import wording from '../stores/wording'
 
 function Renderer (catchaUpload) {
   this.catchaUpload = catchaUpload
@@ -14,7 +15,7 @@ Renderer.prototype.render = function () {
       <form class="cau-form">
         <input type="file" id="${this.inputFileName}" name="${this.inputFileName}" class="cau-input-file" multiple/>
         <div class="cau-form-msg">
-          <span>Drag your files here or click in this area.</span>
+          <span>${wording.beforeDragEnter()}</span>
         </div>
         <button type="submit" class="cau-submit">Upload</button>
       </form>
@@ -28,13 +29,32 @@ Renderer.prototype.init = function () {
 
   const target = this.target
   const wrapper = target.querySelector('.cau-wrapper')
-  const inputFile = target.querySelector('.cau-input-file')
   const form = target.querySelector('.cau-form')
+  const inputFile = target.querySelector('.cau-input-file')
+  const formMsg = target.querySelector('.cau-form-msg > span')
   const fileStatus = new FileStatus(catchaUpload)
+
+  wrapper.style.width = catchaUpload.width
+  form.style.height = catchaUpload.dropZoneSize
+
+
   wrapper.appendChild(fileStatus.render())
+
+  inputFile.addEventListener('dragenter', (e) => {
+      formMsg.innerText = wording.afterDragEnter()
+      form.classList.add('dragentered')
+  })
+
+  inputFile.addEventListener('dragleave', (e) => {
+    formMsg.innerText = wording.beforeDragEnter()
+    form.classList.remove('dragentered')
+  })
 
   inputFile.addEventListener('change', (e) => {
     e.preventDefault()
+
+    formMsg.innerText = wording.beforeDragEnter()
+    form.classList.remove('dragentered')
 
     let files = inputFile.files
 
