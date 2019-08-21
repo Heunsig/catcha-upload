@@ -31,8 +31,8 @@ export default (fileStatusBar, requirements) => {
     ContentType: fileType,
     ACL: 'public-read'
   }, {
-    partSize: 10000000,
-    queueSize: 3
+    partSize: 5000000,
+    queueSize: 2
   })
   .on('httpUploadProgress', e => { progressHandler(e, fileStatusBar) })
   .send(e => { completeHandler(e, fileStatusBar) })
