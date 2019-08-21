@@ -78,7 +78,17 @@ Renderer.prototype.init = function () {
 
     if (fileStatus.filesReady.length) {
       const upload = new Upload(catchaUpload, fileStatus.filesReady)
-      upload.upload()
+
+      if (catchaUpload.storageType === 'server') {
+        upload.upload()
+      } else if (catchaUpload.storageType === 's3') {
+        upload.uploadToS3({
+          accessKeyId: catchaUpload.s3.accessKeyId,
+          secretAccessKey: catchaUpload.s3.secretAccessKey,
+          region: catchaUpload.s3.region,
+          bucket: catchaUpload.s3.bucket
+        })
+      }
 
       fileStatus.clearFilesReady()
       fileStatus.changeFilesCounter()  
@@ -87,3 +97,4 @@ Renderer.prototype.init = function () {
 }
 
 export default Renderer
+

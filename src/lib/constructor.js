@@ -11,6 +11,13 @@ export default function Constructor (target, opts) {
   this.maximumFileSize = 5000000
   this.minimumFileSize = 0
   this.maximumFileNumber = 0
+  this.storageType = 'server' // server, s3
+  this.s3 = {
+    accessKeyId: '',
+    secretAccessKey: '',
+    region: '',
+    bucket: ''
+  }
 
   if (target) {
     this.setTarget(target)
