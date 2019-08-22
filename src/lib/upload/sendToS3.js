@@ -1,4 +1,5 @@
-import awsSDK from 'aws-sdk'
+// import awsSDK from 'aws-sdk'
+
 import {
   loadstartHandler,
   progressHandler,
@@ -12,8 +13,8 @@ export default (fileStatusBar, requirements) => {
   const fileName = file.name
   const fileType = file.type
 
-  awsSDK.config.region = requirements.region
-  awsSDK.config.credentials = new AWS.CognitoIdentityCredentials({
+  AWS.config.region = requirements.region
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: requirements.IdentityPoolId,
   });
   
@@ -23,7 +24,7 @@ export default (fileStatusBar, requirements) => {
   //   region: requirements.region
   // })
 
-  const s3 = new awsSDK.S3({
+  const s3 = new AWS.S3({
     params: {
       Bucket: requirements.bucket
     }

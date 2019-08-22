@@ -29,7 +29,5 @@
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0"
   },
-  "dependencies": {
-    "aws-sdk": "^2.514.0"
-  }
+  "dependencies": {}
 }
