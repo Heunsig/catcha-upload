@@ -106,6 +106,7 @@
   border: 1px solid #bababa;
   border-radius: 8px;
   align-items: center;
+  background: white;
 }
 
 .cau-file-preview {
