@@ -2,6 +2,4 @@
 A simple and light file upload plugin without dependant libraries
 
 ## Version  
-0.0.18
-
-## Bug report
+0.0.21
