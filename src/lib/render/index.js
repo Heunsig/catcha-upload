@@ -34,9 +34,8 @@ Renderer.prototype.init = function () {
   const formMsg = target.querySelector('.cau-form-msg > span')
   const fileStatus = new FileStatus(catchaUpload)
 
-  wrapper.style.width = catchaUpload.width
-  form.style.height = catchaUpload.dropZoneSize
-
+  wrapper.style.width = catchaUpload.style.width
+  form.style.height = catchaUpload.style.dropZoneHeight
 
   wrapper.appendChild(fileStatus.render())
 
@@ -83,10 +82,11 @@ Renderer.prototype.init = function () {
         upload.upload()
       } else if (catchaUpload.storageType === 's3') {
         upload.uploadToS3({
-          accessKeyId: catchaUpload.s3.accessKeyId,
-          secretAccessKey: catchaUpload.s3.secretAccessKey,
+          IdentityPoolId: catchaUpload.s3.IdentityPoolId,
           region: catchaUpload.s3.region,
           bucket: catchaUpload.s3.bucket
+          // accessKeyId: catchaUpload.s3.accessKeyId,
+          // secretAccessKey: catchaUpload.s3.secretAccessKey,
         })
       }
 

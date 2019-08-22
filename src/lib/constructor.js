@@ -4,20 +4,29 @@ import pjson from '../../package.json'
 export default function Constructor (target, opts) {
   this.version = pjson.version
   this.target = null
-  this.width = '500px'
-  this.dropZoneSize = '150px'
-  this.url = 'http://localhost'
+  this.url = 'http://localhost:8080'
   this.inputFileName = 'media'
-  this.maximumFileSize = 5000000
-  this.minimumFileSize = 0
-  this.maximumFileNumber = 0
+
+  this.style = {
+    width: '500px',
+    dropZoneHeight: '150px'
+  }
+
+  this.rules = {
+    maximumFileSize: 10 * 1024 * 1024,
+    minimumFileSize: 0,
+    maximumFileNumber: 0
+  }
+
   this.storageType = 'server' // server, s3
   this.s3 = {
-    accessKeyId: '',
-    secretAccessKey: '',
+    IdentityPoolId: '',
     region: '',
-    bucket: ''
+    bucket: '',
+    // accessKeyId: '',
+    // secretAccessKey: '',
   }
+
 
   if (target) {
     this.setTarget(target)
@@ -35,7 +44,35 @@ Constructor.prototype.setTarget = function (target) {
 }
 
 Constructor.prototype.setOpts = function (opts) {
-  Object.assign(this, opts)
+
+  const test = Object.assign({}, this, {
+    ...opts,
+    style: {
+      ...this.style,
+      ...opts.style
+    },
+
+    rules: {
+      ...this.rules,
+      ...opts.rules
+    },
+    s3: {
+      ...this.s3,
+      ...opts.s3
+    }
+  })
+
+  Object.assign(this, test)
+  // this = test
+  // Object.
+  // Object.assign(this, opts, {
+  // user: {
+  //   ...a.user,
+  //   groups: 'some changed value'
+  // }
+  // });
+  // Object.assign(this, opts)
+  // console.log(this)
 }
 
 Constructor.prototype.render = function () {

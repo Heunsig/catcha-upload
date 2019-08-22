@@ -11,11 +11,17 @@ export default (fileStatusBar, requirements) => {
   const file = fileStatusBar.file
   const fileName = file.name
   const fileType = file.type
-  awsSDK.config.update({
-    accessKeyId: requirements.accessKeyId,
-    secretAccessKey: requirements.secretAccessKey,
-    region: requirements.region
-  })
+
+  awsSDK.config.region = requirements.region
+  awsSDK.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: requirements.IdentityPoolId,
+  });
+  
+  // awsSDK.config.update({
+  //   accessKeyId: requirements.accessKeyId,
+  //   secretAccessKey: requirements.secretAccessKey,
+  //   region: requirements.region
+  // })
 
   const s3 = new awsSDK.S3({
     params: {
@@ -31,7 +37,7 @@ export default (fileStatusBar, requirements) => {
     ContentType: fileType,
     ACL: 'public-read'
   }, {
-    partSize: 5000000,
+    partSize: 10 * 1024 * 1024,
     queueSize: 2
   })
   .on('httpUploadProgress', e => { progressHandler(e, fileStatusBar) })

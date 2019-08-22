@@ -1,33 +1,18 @@
 let cu = new CatchaUpload(document.querySelector('#fileUpload'), {
-  url: 'http://127.0.0.1:5000/upload',
-  maximumFileSize: 0,
-  minimumFileSize: 0,
-  maximumFileNumber: 5,
-  dropZoneSize: '200px',
-  width: '600px',
+  // url: 'http://127.0.0.1:5000/upload',
+  rules: {
+    maximumFileNumber: 5  
+  },
+  style: {
+    width: '600px',
+    dropZoneHeight: '200px'
+  },
   storageType: 's3',
   s3: {
-    accessKeyId: 'AKIATK2EOW6PJZX5LBFD',
-    secretAccessKey: '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',
+    IdentityPoolId: 'ap-northeast-2:ea7a12a6-954d-43c0-9e11-72403ec0e280',
     region: 'ap-northeast-2',
     bucket: 'catcha-fileupload-demo'
   }
 })
 
-// let cu2 = new CatchaUpload(document.querySelector('#fileUpload2'), {
-//   url: 'http://127.0.0.1:5000/upload',
-//   maximumFileSize: 0,
-//   minimumFileSize: 0,
-//   maximumFileNumber: 5,
-//   dropZoneSize: '200px',
-//   width: '600px',
-//   storageType: 's3',
-//   s3: {
-//     accessKeyId: 'AKIATK2EOW6PJZX5LBFD',
-//     secretAccessKey: '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',
-//     region: 'ap-northeast-2',
-//     bucket: 'catcha-fileupload-demo'
-//   }
-// })
-
-// console.log(cu === cu2)
+console.log('CatchaUpload', cu)
