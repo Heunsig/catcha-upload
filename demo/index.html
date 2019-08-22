@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catcha Upload</title>
+  <link rel="stylesheet" href="catcha-upload-0.0.21.min.css"/>
+</head>
+<body>
+  <div id="catchaUpload"></div>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+  <script src="catcha-upload-0.0.21.min.js"></script>
+  <script>
+    const catchaUpload = new CatchaUpload(document.querySelector('#catchaUpload'), {
+      storageType: 's3',
+      s3: {
+        IdentityPoolId: 'ap-northeast-2:ea7a12a6-954d-43c0-9e11-72403ec0e280',
+        region: 'ap-northeast-2',
+        bucket: 'catcha-fileupload-demo'
+      },
+      rules: {
+        maximumFileNumber: 5  
+      },
+      style: {
+        width: '600px',
+        dropZoneHeight: '200px'
+      }
+    })
+  </script>
+</body>
+</html>
