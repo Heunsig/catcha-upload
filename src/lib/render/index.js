@@ -34,7 +34,7 @@ Renderer.prototype.init = function () {
   const formMsg = target.querySelector('.cau-form-msg > span')
   const fileStatus = new FileStatus(catchaUpload)
 
-  wrapper.style.width = catchaUpload.style.width
+  target.style.width = catchaUpload.style.width
   form.style.height = catchaUpload.style.dropZoneHeight
 
   wrapper.appendChild(fileStatus.render())
