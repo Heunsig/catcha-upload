@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Catcha Upload</title>
-  <link rel="stylesheet" href="catcha-upload-0.0.21.min.css"/>
+  <link rel="stylesheet" href="catcha-upload-0.0.24.min.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Shrikhand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="demo.style.css"/>
 </head>
 <body>
-  <div id="catchaUpload"></div>
+  <div id="demo-wrapper">
+    <h1>Catcha Upload</h1>
+    <div id="catchaUpload"></div>
+  </div>
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-  <script src="catcha-upload-0.0.21.min.js"></script>
+  <script src="catcha-upload-0.0.24.min.js"></script>
   <script>
     const catchaUpload = new CatchaUpload(document.querySelector('#catchaUpload'), {
       storageType: 's3',
