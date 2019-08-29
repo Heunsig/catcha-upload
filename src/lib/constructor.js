@@ -22,9 +22,7 @@ export default function Constructor (target, opts) {
   this.s3 = {
     IdentityPoolId: '',
     region: '',
-    bucket: '',
-    // accessKeyId: '',
-    // secretAccessKey: '',
+    bucket: ''
   }
 
 
