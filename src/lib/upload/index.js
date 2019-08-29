@@ -1,4 +1,4 @@
-import send from './send'
+import sendToServer from './sendToServer'
 import sendToS3 from './sendToS3'
 
 export default function Upload (catchaUpload, filesReady) {
@@ -36,7 +36,7 @@ Upload.prototype.uploadSingleFile = function (fileStatusBar) {
   const formData = new FormData()
   formData.append(this.inputFileName, fileStatusBar.file)
 
-  send(this.catchaUpload.url, formData, fileStatusBar)
+  sendToServer(this.catchaUpload.url, formData, fileStatusBar)
 }
 
 Upload.prototype.uploadToS3 = function (requirements) {
