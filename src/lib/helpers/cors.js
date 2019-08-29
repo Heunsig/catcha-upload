@@ -1,3 +1,6 @@
+/////////////////////
+// Legacy function //
+/////////////////////
 export const createCORSRequest = (method, url) => {
   var xhr = new XMLHttpRequest();
   if ("withCredentials" in xhr) {
