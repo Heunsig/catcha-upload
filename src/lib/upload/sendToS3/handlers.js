@@ -1,22 +1,22 @@
-export function loadstartHandler (event,  fileStatusBar) { 
+export function loadstartHandler (fileStatusBar) { 
   fileStatusBar.renderStatusInProgress()
 } 
 
-export function progressHandler (event,  fileStatusBar) {
-  let percent = Math.round(event.loaded / event.total * 99)
+export function progressHandler (progress,  fileStatusBar) {
+  let percent = Math.round(progress.loaded / progress.total * 99)
   fileStatusBar.changePercentage(percent)
 }
 
-export function completeHandler (event,  fileStatusBar) {
+export function completeHandler (err, data,  fileStatusBar) {
   fileStatusBar.complete()
   fileStatusBar.changePercentage(100)
   fileStatusBar.fileStatus.addFileUploaded(fileStatusBar)
 }
 
-export function errorHandler (event) {
-  console.log('error')
-}
+// export function errorHandler (event) {
+//   console.log('error')
+// }
 
-export function abortHandler (event) {
-  console.log('abort')
-}
+// export function abortHandler (event) {
+//   console.log('abort')
+// }
