@@ -63,16 +63,6 @@ Constructor.prototype.setOpts = function (opts) {
   })
 
   Object.assign(this, test)
-  // this = test
-  // Object.
-  // Object.assign(this, opts, {
-  // user: {
-  //   ...a.user,
-  //   groups: 'some changed value'
-  // }
-  // });
-  // Object.assign(this, opts)
-  // console.log(this)
 }
 
 Constructor.prototype.render = function () {
